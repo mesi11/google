@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM5DwXeFMPdMwhyeJeYu_EG3KLIpz9OQ0&sensor=true">
+    </script>
+
+    <script type="text/javascript">
+
+var map;
+function initMap() {
+
+	var mapOptions = {
+//		center: {lat: 35.400, lng: 139.300},
+		center: {lat: 36.400, lng: 139.300},
+		zoom: 15,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+
+
+if(!!navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(
+successCallback, errorCallback
+
+//		function(position) {
+/*
+			var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			console.log(position.coords.latitude);
+			console.log(position.coords.longitude);
+*/
+//			showInfoWindow(geolocate, "hogehoge");
+//			map.setCenter(geolocate);
+//		},
+//		function(error){ console.log('No Geolocation Support.'+error.code);
+//		function(error){ console.log('No Geolocation Support.'+error.code);
+/*
+1（PERMISSION_DENIED）
+2（POSITION_UNAVAILABLE）
+3（TIMEOUT）
+*/
+//	}
+);
+
+} else {
+	console.log('No Geolocation Support.');
+}
+
+
+//	navigator.geolocation.getCurrentPosition(function(){console.log('success');}, function(){console.log('failed');}, hoge);
+
+}
+
+function successCallback(position) {
+	console.log("経度：" + position.coords.latitude);
+	console.log("緯度：" + position.coords.longitude);
+}
+
+function errorCallback(error) {
+	switch(error.code) {
+		case 1:
+			console.log("位置情報の取得が許可されませんでした。");
+			break;
+		case 2:
+			console.log("位置情報の取得に失敗しました。");
+			break;
+		case 3:
+			console.log("タイムアウトしました。");
+		break;
+	}
+}
+
+
+
+    </script>
+
+  </head>
+  <body onload="initMap()">
+    <div id="map"></div>
+
+  </body>
+</html>
+
